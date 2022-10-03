@@ -22,7 +22,7 @@ steps:
   args:
   - '-c'
   - |
-     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" deployment.yaml.tpl | \
+     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" deployment.yaml | \
      sed "s/latest/${SHORT_SHA}/g" > deployment.yaml
 # This step deploys the new version of our container image
 # in the Kubernetes Engine cluster.
