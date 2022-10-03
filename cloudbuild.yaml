@@ -18,15 +18,18 @@ steps:
 - id: 'deploy to gke'
   name: 'gcr.io/cloud-builders/gcloud'
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-test'
+    - 'CLOUDSDK_COMPUTE_ZONE=$_ZONE'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
     - 'KUBECONFIG=/.kube/config'
   entrypoint: 'bash'
   args:
     - '-c'
     - |
-          gcloud container clusters get-credentials cluster-test --project datalabs-hs --zone us-central1-c	
+          gcloud container clusters get-credentials cluster-test --project $PROJECT_ID --zone $_ZONE
           sed -i 's|gcr.io/project-id/cluster-testing|gcr.io/$PROJECT_ID/cluster-testing:$SHORT_SHA|' ./deployment.yaml
           cat deployment.yaml
           kubectl apply -f ./deployment.yaml
+substitutions:
+  _ZONE: us-central1-c
+  _CLUSTER_NAME: cluster-test	
 timeout: 2000s
