@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cluster-testing
-        image: gcr.io/$PROJECT_ID/cluster-testing:latest
+        image: gcr.io/project-id/cluster-testing
         ports:
         - containerPort: 5000
 ---
