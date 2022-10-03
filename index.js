@@ -17,6 +17,10 @@ app.get('/test', (req, res) => {
   res.send('Hello Test');
 });
 
+app.get('/test2', (req, res) => {
+  res.send('Hello Test2');
+});
+
 //Configuration for Port 
 app.listen(process.env.PORT, () => {
   console.log( `Backend server is running on port ${process.env.PORT}`);
