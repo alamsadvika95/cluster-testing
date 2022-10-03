@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster-testing-deployment
+  labels:
+    app: cluster-testing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cluster-testing
+  template:
+    metadata:
+      labels:
+        app: cluster-testing
+    spec:
+      containers:
+      - name: cluster-testing
+        image: gcr.io/$PROJECT_ID/cluster-testing:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-testing-service
+spec:
+  selector:
+    app: cluster-testing
+  ports:
+    - port: 80
+      targetPort: 5000
+  type: LoadBalancer
